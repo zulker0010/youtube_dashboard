@@ -11,7 +11,7 @@ print(top_ranked_channels)
 
 st.title(':jetblack[YouTube Dashboard📈]')
 
-col = st.columns((1,5,4), gap = 'small')
+col = st.columns((1,3,5), gap = 'small')
 
 with col[2]:
     st.markdown('Top 10 YouTube Channels')
@@ -19,6 +19,19 @@ with col[2]:
     st.dataframe(
         top_ranked_channels, 
         hide_index = True,
-    )
-
+        column_config={
+            'rank':st.column_config.TextColumn(
+                'rank'
+                ),
+            'Youtuber': st.column_config.TextColumn(
+                'Youtuber'
+                ),
+            'subscribers': st.column_config.ProgressColumn(
+                'subscribers',
+                 min_value=0.0,
+                 max_value=max(top_ranked_channels['subscribers'] )
+                )
+        }
+            )
+    
 
