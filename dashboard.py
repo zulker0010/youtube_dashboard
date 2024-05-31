@@ -2,12 +2,20 @@ import numpy as np
 import pandas as pd
 import streamlit as st
 import openpyxl
+import altair as alt
+import preprocessor_script
 
+st.set_page_config(
+    page_title='YouTube Dashboard',
+    page_icon='📈',
+    layout='wide'
+)
 
 data_source = pd.read_excel(r"F:\Data Analytics\youtube_dashboard\Global_YouTube_Statistics.xlsx")
 
 top_ranked_channels = data_source.iloc[:,:3]
 print(top_ranked_channels)
+
 
 st.title(':jetblack[YouTube Dashboard📈]')
 
