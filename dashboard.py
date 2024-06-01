@@ -3,7 +3,7 @@ import pandas as pd
 import streamlit as st
 import openpyxl
 import altair as alt
-import preprocessor_script
+from preprocessor_script import df, df_selected_country
 
 st.set_page_config(
     page_title='YouTube Dashboard',
@@ -19,7 +19,16 @@ print(top_ranked_channels)
 
 st.title(':jetblack[YouTube Dashboard📈]')
 
-col = st.columns((1,3,5), gap = 'small')
+col = st.columns((2,4,5), gap = 'small')
+
+
+
+#select a country
+with col[0]:
+    country_list = list(df.Country.unique())[::-1]
+    selected_country = st.selectbox('Select a country', country_list)
+    df_selected_country = df[df.Country == selected_country]
+
 
 with col[2]:
     st.markdown('Top 10 YouTube Channels')
