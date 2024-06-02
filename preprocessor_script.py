@@ -1,6 +1,8 @@
 import numpy as np
 import pandas as pd
 
+
+
 data_source = pd.read_excel(r"F:\Data Analytics\youtube_dashboard\Global_YouTube_Statistics.xlsx")
 
 columns_to_drop = ['Title',
@@ -33,6 +35,7 @@ data_source['Country'] = data_source['Country'].astype(str)
 data_source['rank'] = data_source['rank'].astype(int)
 data_source['subscribers'] = data_source['subscribers'].astype(int)
 data_source['highest_yearly_earnings'] = data_source['highest_yearly_earnings'].astype(int)
+data_source['video views'] = data_source['video views'].astype(int)
 
 df_cleaned = data_source.style.hide(axis='index')
 df_cleaned.to_excel('df_cleaned.xlsx')
@@ -42,18 +45,21 @@ df
 
 df_selected_country = df[df.Country == 'United States'].sort_values(by = 'video views', ascending= False)
 
-def country_stats(most_popular_channel, most_viewed_category, highest_paid, input_df, input_country):
-    df_selected_country_stats = input_df[input_df['Country'] == input_country].reset_index()
+#dynamic stats with country
+def calculate_stats(input_country, view_count, channel_name, sub_count, category_name, earnings):
+    if input_country in df.Country['Country']:
+        view_count = df[df['video views'].max]
+        channel_name = df[df['']]
 
 
 
 #most_popular channel (most viewed)
-def format_num(num):
-    if num > 1000000000:
-        if not num % 1000000000:
-            return f'{num//1000000000}B'
+    def format_num(num):
+        if num > 1000000000:
+            if not num % 1000000000:
+                return f'{num//1000000000}B'
         return f'{round(num/1000000000, 1)}B'
-    return f'{num/100000000}M'
+        return f'{num/100000000}M'
 
 
 

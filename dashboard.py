@@ -19,7 +19,7 @@ print(top_ranked_channels)
 
 st.title(':jetblack[YouTube Dashboard📈]')
 
-col = st.columns((2,4,5), gap = 'small')
+col = st.columns((2,4,5), gap = 'large')
 
 
 
@@ -29,6 +29,7 @@ with col[0]:
     selected_country = st.selectbox('Select a country', country_list)
     df_selected_country = df[df.Country == selected_country]
 
+    
 
 with col[2]:
     st.markdown('Top 10 YouTube Channels')
