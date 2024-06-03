@@ -3,7 +3,8 @@ import pandas as pd
 import streamlit as st
 import openpyxl
 import altair as alt
-from preprocessor_script import df, df_selected_country
+from gauth_script import df
+from preprocessor_script import df_selected_country
 
 st.set_page_config(
     page_title='YouTube Dashboard',
@@ -11,11 +12,9 @@ st.set_page_config(
     layout='wide'
 )
 
-data_source = pd.read_excel(r"F:\Data Analytics\youtube_dashboard\Global_YouTube_Statistics.xlsx")
 
-top_ranked_channels = data_source.iloc[:,:3]
+top_ranked_channels = df.iloc[:,1:4]
 print(top_ranked_channels)
-
 
 st.title(':jetblack[YouTube Dashboard📈]')
 
