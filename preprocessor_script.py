@@ -36,30 +36,46 @@ data_source['rank'] = data_source['rank'].astype(int)
 data_source['subscribers'] = data_source['subscribers'].astype(int)
 data_source['highest_yearly_earnings'] = data_source['highest_yearly_earnings'].astype(int)
 data_source['video views'] = data_source['video views'].astype(int)
+data_source['video views'] = data_source['video views'].abs()
+
 
 df_cleaned = data_source.style.hide(axis='index')
 df_cleaned.to_excel('df_cleaned.xlsx')
 
-df = pd.read_excel('df_cleaned.xlsx')
-df
+from gauth_script import df
 
 df_selected_country = df[df.Country == 'United States'].sort_values(by = 'video views', ascending= False)
 
-#dynamic stats with country
-def calculate_stats(input_country, view_count, channel_name, sub_count, category_name, earnings):
-    if input_country in df.Country['Country']:
-        view_count = df[df['video views'].max]
-        channel_name = df[df['']]
+#dynamic stats within country
+    #find channel with max views
+def most_viewed_channel(input_country):
+     country_df = df[df['Country'] == input_country]
+     max_view_index = country_df['video views'].idxmax()
+     max_view_count = country_df.loc[max_view_index]
+     channel_name = max_view_count['Youtuber']
+     view_count = max_view_count['video views']
+     return(view_count,channel_name) 
+     
+
+    #find channel with max earnings
+def highest_earning_channel(input_country):
+     country_df = df[df['Country'] == input_country]
+     max_earnings_index = country_df['highest_yearly_earnings'].idxmax()
+     max_earning = country_df.loc[max_earnings_index]
+     channel_name = max_earning['Yotuber']
+     highest_earning = max_earning['highest_yearly_earnings']
+     return (highest_earning, channel_name)
 
 
 
-#most_popular channel (most viewed)
-    def format_num(num):
-        if num > 1000000000:
+#most_popular channel number conversion (most viewed)
+def format_num(num):
+       if num > 1000000000:
             if not num % 1000000000:
                 return f'{num//1000000000}B'
-        return f'{round(num/1000000000, 1)}B'
-        return f'{num/100000000}M'
+            return f'{round(num/1000000000, 1)}B'
+       return f'{num/100000000}M' 
+
 
 
 
