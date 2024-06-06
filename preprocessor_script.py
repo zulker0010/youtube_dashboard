@@ -3,6 +3,7 @@ import pandas as pd
 
 
 
+
 data_source = pd.read_excel(r"F:\Data Analytics\youtube_dashboard\Global_YouTube_Statistics.xlsx")
 
 columns_to_drop = ['Title',
@@ -44,7 +45,7 @@ df_cleaned.to_excel('df_cleaned.xlsx')
 
 from gauth_script import df
 
-df_selected_country = df[df.Country == 'United States'].sort_values(by = 'video views', ascending= False)
+#df_selected_country = df[df.Country == 'United States'].sort_values(by = 'video views', ascending= False)
 
 #dynamic stats within country
     #find channel with max views
@@ -54,7 +55,7 @@ def most_viewed_channel(input_country):
      max_view_count = country_df.loc[max_view_index]
      channel_name = max_view_count['Youtuber']
      view_count = max_view_count['video views']
-     return(view_count,channel_name) 
+     return channel_name, view_count 
      
 
     #find channel with max earnings

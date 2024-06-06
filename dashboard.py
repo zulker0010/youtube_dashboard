@@ -4,7 +4,7 @@ import streamlit as st
 import openpyxl
 import altair as alt
 from gauth_script import df
-from preprocessor_script import df_selected_country, most_viewed_channel
+from preprocessor_script import most_viewed_channel, format_num
 
 st.set_page_config(
     page_title='YouTube Dashboard',
@@ -16,19 +16,29 @@ top_ranked_channels = df.iloc[:,1:4]
 print(top_ranked_channels)
 st.title(':jetblack[YouTube Dashboard📈]')
 
-col = st.columns((4,4,5), gap = 'large')
+col = st.columns((3,5,5), gap = 'large')
 
 #select a country
 with col[0]:
     country_list = list(df.Country.unique())[::-1]
     selected_country = st.selectbox('Select a country', country_list)
     df_selected_country = df[df.Country == selected_country]
+    
+    
+    channel_name, view_count = most_viewed_channel(selected_country)
+    
 
+with col[1]:
+    
     st.metric(
-        label = 'Most viewed Channel', 
-        value = 200,
-        delta_color = 'off',
-)
+        'Most viewed channel',  
+        f'{channel_name}'
+        )
+    
+    st.subheader(
+        f'{view_count} views'
+    )
+        
 
     st.metric(
         label = 'Highest Earning Channel',
