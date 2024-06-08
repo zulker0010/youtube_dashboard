@@ -63,9 +63,17 @@ def highest_earning_channel(input_country):
      country_df = df[df['Country'] == input_country]
      max_earnings_index = country_df['highest_yearly_earnings'].idxmax()
      max_earning = country_df.loc[max_earnings_index]
-     channel_name = max_earning['Yotuber']
+     channel_name = max_earning['Youtuber']
      highest_earning = max_earning['highest_yearly_earnings']
-     return (highest_earning, channel_name)
+     return (channel_name, highest_earning)
+
+def most_popular_category(input_country):
+     country_df = df[df['Country'] == input_country]
+     max_subscriber_index = country_df['subscribers'].idxmax()
+     max_subscriber = country_df.loc[max_subscriber_index]
+     category_name = max_subscriber['category']
+     subscriber_count = max_subscriber['subscribers']
+     return (category_name, subscriber_count)
 
 
 

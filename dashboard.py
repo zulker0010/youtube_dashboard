@@ -4,7 +4,7 @@ import streamlit as st
 import openpyxl
 import altair as alt
 from gauth_script import df
-from preprocessor_script import most_viewed_channel, format_num
+from preprocessor_script import most_viewed_channel, format_num, highest_earning_channel, most_popular_category
 
 st.set_page_config(
     page_title='YouTube Dashboard',
@@ -16,7 +16,7 @@ top_ranked_channels = df.iloc[:,1:4]
 print(top_ranked_channels)
 st.title(':jetblack[YouTube Dashboard📈]')
 
-col = st.columns((3,5,5), gap = 'large')
+col = st.columns((3,3,5), gap = 'large')
 
 #select a country
 with col[0]:
@@ -24,34 +24,38 @@ with col[0]:
     selected_country = st.selectbox('Select a country', country_list)
     df_selected_country = df[df.Country == selected_country]
     
-    
     channel_name, view_count = most_viewed_channel(selected_country)
-    
+    max_earning_channel, highest_earning = highest_earning_channel(selected_country)
+    category_name, sub_count = most_popular_category(selected_country)
+
 
 with col[1]:
-    
-    st.metric(
-        'Most viewed channel',  
-        f'{channel_name}'
+    with st.container(border=True): 
+        st.metric(
+            'Most viewed channel',  
+            f'{channel_name}'
+        )
+        st.subheader(
+            f'{view_count} views'
+        )
+        
+    with st.container(border=True): 
+        st.metric(
+            label = 'Highest Earning Channel',
+            value = f'{max_earning_channel}'       
+        )
+        st.subheader(
+            f'{highest_earning} USD'
         )
     
-    st.subheader(
-        f'{view_count} views'
-    )
-        
-
-    st.metric(
-        label = 'Highest Earning Channel',
-        value = '200M',
-        delta_color = 'off'
-    )
-   
-    st.metric(
-        label = 'Most Popular Category',
-        value = '200 subs',
-        delta_color = 'off', 
-    )
-
+    with st.container(border=True):
+        st.metric(
+            label = 'Most Popular Category',
+            value = f'{category_name}'
+        )
+        st.subheader(
+            f'{sub_count}'
+        )
 
 with col[2]:
     
