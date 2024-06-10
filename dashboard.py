@@ -27,7 +27,7 @@ with col[0]:
     channel_name, view_count = most_viewed_channel(selected_country)
     max_earning_channel, highest_earning = highest_earning_channel(selected_country)
     category_name, sub_count = most_popular_category(selected_country)
-
+    format_view_count = format_num(view_count)
 
 with col[1]:
     with st.container(border=True): 
@@ -36,7 +36,7 @@ with col[1]:
             f'{channel_name}'
         )
         st.subheader(
-            f'{view_count} views'
+            f'{format_view_count} views'
         )
         
     with st.container(border=True): 
@@ -45,7 +45,7 @@ with col[1]:
             value = f'{max_earning_channel}'       
         )
         st.subheader(
-            f'{highest_earning} USD'
+            f'${highest_earning}'
         )
     
     with st.container(border=True):
@@ -66,13 +66,14 @@ with col[2]:
         hide_index = True,
         column_config={
             'rank':st.column_config.TextColumn(
-                'rank'
+                'Rank'
                 ),
             'Youtuber': st.column_config.TextColumn(
                 'Youtuber'
                 ),
             'subscribers': st.column_config.ProgressColumn(
-                'subscribers',
+                'Subscribers',
+                format='',
                  min_value=0.0,
                  max_value=max(top_ranked_channels['subscribers'] )
                 )

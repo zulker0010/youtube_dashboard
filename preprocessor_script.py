@@ -76,15 +76,10 @@ def most_popular_category(input_country):
      return (category_name, subscriber_count)
 
 
-
 #most_popular channel number conversion (most viewed)
 def format_num(num):
        if num > 1000000000:
-            if not num % 1000000000:
-                return f'{num//1000000000}B'
-            return f'{round(num/1000000000, 1)}B'
-       return f'{num/100000000}M' 
-
+            return (f'{round(num/1000000000,1)}B' )     
 
 
 
